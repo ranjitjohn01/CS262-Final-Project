@@ -1,5 +1,6 @@
 /* This code is a modification of slippery.c by Thomas Kaeding 2018-2019 in his paper */
-/* This is a slippery hill-climbing method for ciphertext-only attack on
+/* Ranjit John 
+This is a slippery hill-climbing method for ciphertext-only attack on
    Vigenere ciphers using a dictionary*/
 
 #include <stdlib.h>
@@ -203,7 +204,7 @@ int main(int argc, char** argv) {
     max_iterations = 1000000;
   }
     int r = random()%line;
-    copy_keys(data[r], pk, period);
+    copy_keys(data[r], pk, period); //randomly pick initial m-letter word
   
 
     decrypt (c,p,pk,period);
@@ -212,7 +213,7 @@ int main(int argc, char** argv) {
 
     while (bigcount < max_iterations){
         r = random()%line;
-        copy_keys(data[r], pk, period);
+        copy_keys(data[r], pk, period); //randomly pick new m-letter word
 
         decrypt(c,p,pk,period);
         fitp = fitness(p);
@@ -248,7 +249,8 @@ int main(int argc, char** argv) {
     clock_t end = clock();
     time_spent += (double)(end - begin)/CLOCKS_PER_SEC;
     file = fopen(outfileName, "a");
-    //fprintf(file,"Best Plaintext, Best Key, Best Fit, Time Spent (sec), Time Spent (min)\n");
+    
+    //writing output to csv file
     fprintf(file,"%s, %s, %8.4f, %f, %f\n", bestp, bestk, bestf, time_spent, (time_spent/60));
     fclose(file);
 
